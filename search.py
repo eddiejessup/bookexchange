@@ -54,7 +54,7 @@ class Book(object):
             self.author, self.title, self.ISBN, self.condition, self.status)
 
 
-def link_to_profile(link):
+def link_profile_map_yaml(link):
     profile_yaml = load_yaml(link)
     profile_args = parse_profile_yaml(profile_yaml)
     return Profile(*profile_args)

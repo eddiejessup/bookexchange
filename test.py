@@ -74,15 +74,15 @@ def random_profile_network(n_profs, n_books_max, p):
     return profiles
 
 
-def make_dict_link_profile_map(profiles):
-    def link_profile_map(link):
+def make_link_profile_map_dict(profiles):
+    def link_profile_map_dict(link):
         return profiles[link]
-    return link_profile_map
+    return link_profile_map_dict
 
 
 def test_search(n_profs, n_books_max, p):
     profiles = random_profile_network(n_profs, n_books_max, p)
-    link_profile_map = make_dict_link_profile_map(profiles)
+    link_profile_map = make_link_profile_map_dict(profiles)
     start_link = choice(profiles.keys())
     destination_link = choice(profiles.keys())
     destination_profile = link_profile_map(destination_link)
