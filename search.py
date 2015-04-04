@@ -18,12 +18,8 @@ def parse_profile_yaml(profile_yaml):
     books = []
     for book_yaml in books_yaml:
         books.append(Book(book_yaml))
-
-    connections_yaml = profile_yaml['connections']
-    connections = []
-    for connection_yaml in connections_yaml:
-        connections.append(Book(connection_yaml))
-    return name, email, books, connections
+    links_yaml = profile_yaml['links']
+    return name, email, books, links_yaml
 
 
 class Profile(object):
