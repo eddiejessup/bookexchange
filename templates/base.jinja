@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='custom-theme/jquery-ui-1.10.0.custom.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+
+        {% block scripts %}
+            <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="{{ url_for('static', filename='custom-theme/jquery-ui-1.9.2.custom.min.js') }}"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            <!-- So that javascript knows where my site is -->
+            <script type=text/javascript>
+              $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            </script>
+        {% endblock %}
+    </head>
+    <body>
+        {% block navbar %}
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ url_for('search') }}">BookExchange</a>
+                </div>
+            </nav>
+        {% endblock %}
+
+        {% block content %}{% endblock %}
+    </body>
+</html>
