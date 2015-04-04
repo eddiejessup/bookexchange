@@ -1,7 +1,7 @@
 from string import uppercase, lowercase, digits
 import numpy.random
 from numpy.random import choice
-from search import Profile, Book, find_match_bfs
+import search
 
 uppercase = list(uppercase)
 lowercase = list(lowercase)
@@ -46,10 +46,10 @@ def make_link(name):
 def random_iso_profile(n_books_max):
     name = random_name()
     email = make_email(name)
-    books = [Book(random_ISBN(), random_title(), random_name(),
-                  random_condition(), random_status())
+    books = [search.Book(random_ISBN(), random_title(), random_name(),
+                         random_condition(), random_status())
              for _ in range(numpy.random.randint(1, n_books_max))]
-    return Profile(name, email, books, links=[])
+    return search.Profile(name, email, books, links=[])
 
 
 def random_iso_profiles(n_profs, n_books_max):
@@ -88,5 +88,5 @@ def test_search(n_profs, n_books_max, p):
     destination_profile = link_profile_map(destination_link)
     destination_book = choice(destination_profile.books)
     query = destination_book.ISBN
-    results = find_match_bfs(start_link, query, link_profile_map)
+    results = search.find_match_bfs(start_link, query, link_profile_map)
     return results
