@@ -1,8 +1,13 @@
 import yaml
+import urllib2
 
 
 def load_yaml(link):
-    return yaml.parse(link)
+    try:
+        stream = urllib2.urlopen(link)
+    except ValueError:
+        stream = open(link, 'r')
+    return yaml.load(stream)
 
 
 def parse_profile_yaml(profile_yaml):
