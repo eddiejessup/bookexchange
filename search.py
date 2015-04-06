@@ -61,17 +61,30 @@ def link_profile_map_yaml(link):
     return Profile(*profile_args)
 
 
+def get_path(previous_links, link):
+    path = []
+    while True:
+        if link is not None:
+            path.append(link)
+        else:
+            return path
+        link = previous_links[link]
+
+
 def find_match_bfs(start_link, query, link_profile_map):
     links_dicovered = [start_link]
     links_to_visit = [start_link]
+    previous_links = {start_link: None}
     while len(links_to_visit):
         current_link = links_to_visit.pop()
         current_profile = link_profile_map(current_link)
         matching_book = current_profile.search(query)
         if matching_book is not None:
-            return current_profile, matching_book
+            path = get_path(previous_links, current_link)
+            return current_profile, matching_book, path
         for new_link in current_profile.links:
             if new_link not in links_dicovered:
                 links_to_visit.append(new_link)
                 links_dicovered.append(new_link)
-    return None, None
+                previous_links[new_link] = current_link
+    return None, None, []
