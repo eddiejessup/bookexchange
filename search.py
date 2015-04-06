@@ -65,13 +65,13 @@ def find_match_bfs(start_link, query, link_profile_map):
     links_dicovered = [start_link]
     links_to_visit = [start_link]
     while len(links_to_visit):
-        link = links_to_visit.pop()
-        profile = link_profile_map(link)
-        results = profile.search(query)
+        current_link = links_to_visit.pop()
+        current_profile = link_profile_map(current_link)
+        results = current_profile.search(query)
         if results is not None:
             return results
-        for link in profile.links:
-            if link not in links_dicovered:
-                links_to_visit.append(link)
-                links_dicovered.append(link)
+        for new_link in current_profile.links:
+            if new_link not in links_dicovered:
+                links_to_visit.append(new_link)
+                links_dicovered.append(new_link)
     return None, None
