@@ -43,26 +43,28 @@ def make_link(name):
         name, choice(['co.uk', 'com', 'org']))
 
 
-def random_iso_profile(n_books_max):
+def random_book():
+    return search.Book(random_ISBN(), random_title(), random_name(),
+                       random_condition(), random_status())
+
+
+def random_empty_profile():
     name = random_name()
     email = make_email(name)
-    books = [search.Book(random_ISBN(), random_title(), random_name(),
-                         random_condition(), random_status())
-             for _ in range(numpy.random.randint(1, n_books_max))]
-    return search.Profile(name, email, books, links=[])
+    return search.Profile(name, email, books=[], links=[])
 
 
-def random_iso_profiles(n_profs, n_books_max):
+def random_empty_iso_profiles(n_profs):
     profiles = {}
     for i_prof in range(n_profs):
-        profile = random_iso_profile(n_books_max)
+        profile = random_empty_profile()
         link = make_link(profile.name)
         profiles[link] = profile
     return profiles
 
 
-def random_profile_network(n_profs, n_books_max, p):
-    profiles = random_iso_profiles(n_profs, n_books_max)
+def random_empty_profile_network(n_profs, p):
+    profiles = random_empty_iso_profiles(n_profs)
     link_list = profiles.keys()
     for i_1 in range(len(link_list)):
         link_1 = link_list[i_1]
@@ -80,8 +82,10 @@ def make_link_profile_map_dict(profiles):
     return link_profile_map_dict
 
 
-def test_search(n_profs, n_books_max, p):
-    profiles = random_profile_network(n_profs, n_books_max, p)
+def test_search(n_profs, p):
+    profiles = random_empty_profile_network(n_profs, p)
+    for profile in profiles.values():
+        profile.books = [random_book() for _ in range(6)]
     link_profile_map = make_link_profile_map_dict(profiles)
     start_link = choice(profiles.keys())
     destination_link = choice(profiles.keys())
