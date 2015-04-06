@@ -32,7 +32,7 @@ class Profile(object):
     def search(self, query):
         for book in self.books:
             if book.match(query):
-                return self, book
+                return book
 
     def __str__(self):
         return '{} ({}), {} books, {} links'.format(
@@ -67,9 +67,9 @@ def find_match_bfs(start_link, query, link_profile_map):
     while len(links_to_visit):
         current_link = links_to_visit.pop()
         current_profile = link_profile_map(current_link)
-        results = current_profile.search(query)
-        if results is not None:
-            return results
+        matching_book = current_profile.search(query)
+        if matching_book is not None:
+            return current_profile, matching_book
         for new_link in current_profile.links:
             if new_link not in links_dicovered:
                 links_to_visit.append(new_link)
