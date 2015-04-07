@@ -93,4 +93,4 @@ def test_search(n_profs, p):
     destination_book = choice(destination_profile.books)
     query = destination_book.ISBN
     results = search.find_match_bfs(start_link, query, link_profile_map)
-    return results
+    return profiles, results
