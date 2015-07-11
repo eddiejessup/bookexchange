@@ -1,0 +1,22 @@
+name: 'Elliot Marsden'
+email: 'elliot.marsden@gmail.com'
+books:
+    - ISBN: 10001
+      title: 'The Secret Agent'
+      author: 'Joseph Conrad'
+      condition: 'good'
+      status: "not available"
+    - ISBN: 10002
+      title: 'Dreams From My Father'
+      author: 'Barrack Obama'
+      condition: 'very good'
+      status: "not available"
+    - ISBN: 10002
+      title: 'Russia'
+      author: 'Jonathan Dimbleby'
+      condition: 'very good'
+      status: "available"
+links:
+    - www.lizzieeardley.com/profile.yaml
+    - www.ferguscullen.com/profile.yaml
+    - www.catmills.com/profile.yaml
