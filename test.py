@@ -94,3 +94,23 @@ def test_search(n_profs, p):
     query = destination_book.ISBN
     results = search.find_match_bfs(start_link, query, link_profile_map)
     return profiles, results
+
+
+def nth_adjacent_link(start_link, profiles, n):
+    adjacent_link = profiles[start_link].links[0]
+    if n == 1:
+        return adjacent_link
+    else:
+        return nth_adjacent_link(adjacent_link, profiles, n - 1)
+
+
+def test_search_known(n_profs, p):
+    profiles = random_empty_profile_network(n_profs, p)
+    for profile in profiles.values():
+        profile.books = [random_book() for _ in range(6)]
+
+    start_link = choice(profiles.keys())
+    target_link = nth_adjacent_link(start_link, profiles, 2)
+    target_profile, path = search.find_match_bfs_known(start_link, target_link, profiles)
+    print(start_link, target_link)
+    return target_profile, path
