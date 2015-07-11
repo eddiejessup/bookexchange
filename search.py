@@ -88,3 +88,23 @@ def find_match_bfs(start_link, query, link_profile_map):
                 links_dicovered.append(new_link)
                 previous_links[new_link] = current_link
     return None, None, []
+
+
+def find_match_bfs_known(start_name, target_name, nodes):
+    names_dicovered = [start_name]
+    names_to_visit = [start_name]
+    previous_names = {start_name: None}
+    while len(names_to_visit):
+        current_name = names_to_visit.pop()
+        current_node = nodes[current_name]
+        print(current_name)
+        if current_name == target_name:
+            name_path = get_path(previous_names, current_name)
+            return current_node, name_path
+        for new_name in current_node.links:
+            if new_name not in names_dicovered:
+                names_to_visit.append(new_name)
+                names_dicovered.append(new_name)
+                assert new_name not in previous_names
+                previous_names[new_name] = current_name
+    return None, []
